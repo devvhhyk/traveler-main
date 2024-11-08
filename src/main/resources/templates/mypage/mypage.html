@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/css/mypage/mypage.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/header_foter/header.css" />
+    <link rel="stylesheet" href="/css/header_foter/foter.css" />
+    <script type="text/javascript" src="/js/mypage/mypage.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <div th:replace="header_foter/header :: header"></div>
+        <div class="body_container">
+            <div class="profile_container">
+                <div class="profile_content">
+                    <input type="hidden" id="id" name="id" th:value="${session.id}">
+                    <h4>[[${vo.getUserName()}]] 님</h4>
+                    <p>[[${vo.getUserTell()}]] / [[${vo.getUserEmail()}]]</p>
+                </div>
+                <input type="button" onclick="proEditor()" value="내 정보 수정하기">
+            </div>
+            <div>
+                <table class="table_content">
+                    <tr>
+                        <th>구분</th>
+                        <th>구매항목</th>
+                        <th>사용일</th>
+                        <th>인원수</th>
+                        <th>결제일</th>
+                    </tr>
+                    <tr th:each="order : ${orders}">
+                        <th:block th:if="${order.getBinCate() == '1'}">
+                            <td>항공</td>
+                        </th:block>
+                        <th:block th:if="${order.getBinCate() == '2'}">
+                            <td>숙박</td>
+                        </th:block>
+                        <th:block th:if="${order.getBinCate() == '3'}">
+                            <td>티켓</td>
+                        </th:block>
+                        <th:block th:if="${order.getBinCate() == '4'}">
+                            <td>패키지</td>
+                        </th:block>
+                        <td>[[${order.getTitle}]]</td>
+                        <td>[[${#dates.format(order.getUseDate, 'yyyy-MM-dd')}]]</td>
+                        <td>[[${order.getTotalCnt}]]</td>
+                        <td>[[${#dates.format(order.getOrderDate, 'yyyy-MM-dd')}]]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div th:replace="header_foter/foter :: foter"></div>
+    </main>
+</body>
+</html>

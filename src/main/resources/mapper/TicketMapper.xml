@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exampl.traveler.mapper.TicketMapper">
+
+    <resultMap id="ticketResultMap" type="com.exampl.traveler.vo.TicketVO">
+        <id property="tickNO" column="tickNO"/>
+        <result property="binID" column="binID"/>
+        <result property="tickImg" column="tickImg"/>
+        <result property="tickTitle" column="tickTitle"/>
+        <result property="tickText" column="tickText"/>
+        <result property="tickOp" column="tickOp"/>
+        <result property="tickPrice" column="tickPrice"/>
+        <result property="tickDate" column="tickDate"/>
+        <result property="tickPlace" column="tickPlace"/>
+        <result property="category" column="category"/>
+    </resultMap>
+
+    <select id="getAllTickets" resultMap="ticketResultMap">
+        SELECT * FROM tick
+    </select>
+
+    <select id="getTicketByTickNO" resultMap="ticketResultMap">
+        SELECT * FROM tick WHERE tickNO = #{tickNO}
+    </select>
+
+    <insert id="createOrder" parameterType="map" useGeneratedKeys="true" keyProperty="orderID">
+        INSERT INTO orders (userID, comNO, binCate, totalCnt, orderDate, useDate)
+        VALUES (#{userId}, #{comNO}, #{binCate}, #{totalCnt}, #{orderDate}, #{useDate})
+    </insert>
+
+    <insert id="createDiary" parameterType="map">
+        INSERT INTO DIARY (userID, ORDERID, allday, DIARYTITLE)
+        VALUES (#{userId}, #{orderId}, #{allDay}, #{diaryTitle})
+    </insert>
+
+    <select id="getLastInsertId" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+
+    </mapper>

@@ -1,0 +1,138 @@
+main {
+    padding-top:141px; /* header와 nav의 높이에 따라 조정 */
+    padding-bottom: 50px;
+    height: 100%;
+  }
+body, html {
+    height: 200vh;
+    margin: 0;
+
+}
+
+.bgimg {
+    height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-box {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    width: 600px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.search-btn-input {
+    border: none;
+    width:500px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+.search-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+.search-box button:hover {
+    background-color: #0056b3;
+}
+.community_detail_btn a{
+    text-decoration: none;
+    color : white;
+}
+/*나라 추천*/
+.best-container{
+    margin-top: 80px;
+
+}
+.best-trip {
+    display: flex;
+    gap: 200px;
+    padding-left: 80px;
+    padding-right : 80px
+    justify-content:center;
+}
+.best_btn {
+    background-color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.best_btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.best_btn img {
+    width: 280px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.best_btn h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+
+}
+.best_text {
+    font-weight:bolder;
+   padding-left: 80px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+
+}
+
+/*패키지*/
+.package_text {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+.package_top {
+    margin-bottom: 50px;
+}
+.package_container {
+    display: flex;
+    width : auto;
+    gap: 20px;
+    justify-content: center;
+}
+.package_btn {
+    background-color: #fff;
+    max-width : 320px;
+    max-height : 200px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+.package_btn img {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.package_btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exampl.traveler.mapper.PackageMapper">
+
+    <select id="getAllPackages" resultType="com.exampl.traveler.vo.PackageVO">
+        SELECT * FROM Package
+    </select>
+
+    <select id="getPackageById" parameterType="String" resultType="com.exampl.traveler.vo.PackageVO">
+        SELECT * FROM Package WHERE packageNO = #{id}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.exampl.traveler.vo.UserOrderVO" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO orders (userID, comNO, binCate, totalCnt, orderDate, useDate)
+        VALUES (#{userId}, #{comNO}, #{binCate}, #{totalCnt}, #{orderDate}, #{useDate})
+    </insert>
+
+    <insert id="insertDiary" parameterType="java.util.Map">
+        INSERT INTO DIARY (userID, orderID, GoDay, BackDay, DiaryTitle)
+        VALUES (#{userId}, #{orderId}, #{goDay}, #{backDay}, #{diaryTitle})
+    </insert>
+
+    <select id="getLastInsertId" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID()
+    </select>
+    <select id="getPackages" parameterType="com.exampl.traveler.vo.PackageVO">
+        SELECT * FROM Package
+    </select>
+    <select id="getPackagesNat" resultType="com.exampl.traveler.vo.PackageVO">
+        SELECT * FROM Package
+        WHERE packageTitle LIKE CONCAT('%', #{keyword}, '%')
+        OR packageCountry LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+</mapper>

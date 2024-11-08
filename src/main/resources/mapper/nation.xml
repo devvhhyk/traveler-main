@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exampl.traveler.mapper.NationMapper">
+    <resultMap id="nation" type="com.exampl.traveler.vo.NationVO">
+        <result property="natNO" column="natNO"/>
+        <result property="natName" column="natName"/>
+        <result property="natText" column="natText"/>
+        <result property="natMonth" column="natMonth"/>
+        <result property="natAirTime" column="natAirTime"/>
+        <result property="exchange" column="exchange"/>
+        <collection property="cities" ofType="com.exampl.traveler.vo.CityVO">
+            <id property="cityNO" column="cityNO" />
+            <result property="cityName" column="cityName" />
+            <result property="cityText" column="cityText" />
+            <result property="cityMonth" column="cityMonth" />
+            <result property="cityAirTime" column="cityAirTime" />
+        </collection>
+    </resultMap>
+
+
+    <select id="selectNationById" resultMap="nation" parameterType="String">
+        SELECT
+        n.*,
+        c.cityNO AS cityNO,
+        c.cityName AS cityName,
+        c.cityText AS cityText,
+        c.cityMonth AS cityMonth,
+        c.cityAirTime AS cityAirTime
+        FROM nation n
+        LEFT JOIN city c ON n.natNO = c.natNO
+        WHERE n.natNO = #{natNO}
+    </select>
+
+
+    <select id="getNationByName" parameterType="string" resultType="com.exampl.traveler.vo.NationVO">
+        SELECT * FROM NATION WHERE natName = #{nationName}
+    </select>
+</mapper>

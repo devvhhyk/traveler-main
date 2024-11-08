@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exampl.traveler.mapper.DiaryMapper">
+
+    <select id="show" parameterType="String" resultType="com.exampl.traveler.vo.DiaryVO">
+        SELECT * FROM diary WHERE userID = #{userId};
+    </select>
+
+    <insert id="insertDiaryEntry" parameterType="com.exampl.traveler.vo.DiaryVO">
+        INSERT INTO diary (userId, goDay, backDay, diaryTitle, diaryColor)
+        VALUES (#{userId}, #{goDay}, #{backDay}, #{diaryTitle}, #{diaryColor})
+    </insert>
+    <update id="updateDiaryEntry" parameterType="com.exampl.traveler.vo.DiaryVO">
+        UPDATE diary
+        SET goDay = #{goDay}, backDay = #{backDay}, DiaryTitle = #{DiaryTitle}, DiaryColor = #{DiaryColor}
+        WHERE diaryNO = #{diaryNO}
+    </update>
+
+    <delete id="deleteDiaryEntry"  parameterType="String">
+        DELETE FROM diary WHERE diaryNO = #{diaryNO}
+    </delete>
+
+</mapper>

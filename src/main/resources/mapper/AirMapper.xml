@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exampl.traveler.mapper.AirMapper">
+
+    <select id="findOneWayAir" resultType="com.exampl.traveler.vo.AirVO">
+        SELECT * FROM Airline
+        WHERE departureAirport = #{departure}
+        AND arrivalAirport = #{destination}
+        AND DATE(departureDateTime) = #{departureDate}
+    </select>
+
+    <select id="findRoundTripAir" resultType="com.exampl.traveler.vo.AirVO">
+        SELECT * FROM Airline
+        WHERE departureAirport = #{departure}
+        AND arrivalAirport = #{destination}
+        AND DATE(departureDateTime) = #{departureDate}
+    </select>
+
+    <select id="findRoundTripReturnAir" resultType="com.exampl.traveler.vo.AirVO">
+        SELECT * FROM Airline
+        WHERE departureAirport = #{destination}
+        AND arrivalAirport = #{departure}
+        AND DATE(departureDateTime) = #{returnDate}
+    </select>
+
+    <select id="getAirByAirlineNo" resultType="com.exampl.traveler.vo.AirVO">
+        SELECT * FROM Airline WHERE airlineNo = #{airlineNo}
+    </select>
+
+    <select id="getAvailableSeats" resultType="string">
+        SELECT seatNumber
+        FROM seat
+        WHERE airlineNo = #{airlineNo} AND isAvailable = true
+        ORDER BY seatNumber
+    </select>
+
+    <update id="updateSeatAvailability">
+        UPDATE seat
+        SET isAvailable = #{isAvailable},
+        userID = #{userId},
+        airType = #{tripType}
+        WHERE airlineNo = #{airlineNo}
+        AND seatNumber = #{seatNumber}
+        AND isAvailable = true
+    </update>
+
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderID">
+        <selectKey keyProperty="orderId" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO orders (userID, comNO, binCate, totalCnt, orderDate, useDate)
+        VALUES (
+        #{userId},
+        #{comNO},
+        '1',
+        1,
+        CURDATE(),
+        #{useDate}
+        )
+    </insert>
+
+    <insert id="insertDiary">
+        INSERT INTO DIARY (userID, ORDERID, allday, GODAY, BACKDAY, DIARYTITLE)
+        VALUES (
+        #{userId},
+        #{orderId},
+        <choose>
+            <when test="tripType == 'oneway'">#{allDay}</when>
+            <otherwise>NULL</otherwise>
+        </choose>,
+        <choose>
+            <when test="tripType == 'roundtrip'">#{goDay}</when>
+            <otherwise>NULL</otherwise>
+        </choose>,
+        <choose>
+            <when test="tripType == 'roundtrip'">#{backDay}</when>
+            <otherwise>NULL</otherwise>
+        </choose>,
+        #{diaryTitle}
+        )
+    </insert>
+
+</mapper>

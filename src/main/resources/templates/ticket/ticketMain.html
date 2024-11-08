@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>티켓 검색</title>
+  <link rel="stylesheet" href="/css/header_foter/header.css" />
+  <link rel="stylesheet" href="/css/ticket/ticket.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="/js/header_foter/header.js" defer></script>
+  <script src="/js/ticket/ticketMain.js" defer></script>
+</head>
+<body>
+<div th:replace="header_foter/header :: header"></div>
+
+<main class="ticket_page">
+  <div class="search_container">
+    <input type="text" placeholder="어떤 즐거움을 찾으세요?" class="search_input" />
+    <button class="search_btn">검색하기</button>
+  </div>
+
+  <div class="categories">
+    <div class="category" data-category="테마파크"><span class="icon">🎢</span><span class="label">테마파크</span></div>
+    <div class="category" data-category="워터파크"><span class="icon">🏊‍♂️</span><span class="label">워터파크</span></div>
+    <div class="category" data-category="박물관 & 미술관"><span class="icon">🏛️</span><span class="label">박물관 & 미술관</span></div>
+    <div class="category" data-category="공원 & 자연"><span class="icon">🌳</span><span class="label">공원 & 자연</span></div>
+    <div class="category" data-category="아쿠아리움 & 동물원 & 농장"><span class="icon">🐠</span><span class="label">아쿠아리움 & 동물원 & 농장</span></div>
+    <div class="category" data-category="케이블카"><span class="icon">🚡</span><span class="label">케이블카</span></div>
+    <div class="category" data-category="전망대"><span class="icon">🗼</span><span class="label">전망대</span></div>
+  </div>
+
+  <section class="ticket_sections">
+  </section>
+</main>
+</body>
+</html>

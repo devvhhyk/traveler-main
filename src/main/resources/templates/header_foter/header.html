@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="header.css" />
+    <script type="text/javascript" src="/js/header_foter/header.js"></script>
+</head>
+
+<div class="container">
+    <header>
+        <div class="header_content">
+            <h1 class="logo"><a href="/">traveler</a></h1>
+            <div class="button_content">
+                <th:block th:if="${session.id == 'admin'}">
+                    <input type="hidden" id="adminID" name="adminID" th:value="${session.id}">
+                    <span class="userName"><b>[[${session.name}]]</b> 님</span>
+                    <button class="mypage" onclick="adminPage()">관리자</button>
+                    <button class="logout" onclick="logout()">로그아웃</button>
+                </th:block>
+                <th:block th:if="${session.id != null} and ${session.id != 'admin'}">
+                    <input type="hidden" id="id" name="id" th:value="${session.id}">
+                    <span class="userName"><b>[[${session.name}]]</b> 님</span>
+                    <button class="schedule"  onclick="schedule()" th:value="${session.id}">나의 일정</button>
+                    <button class="mypage" onclick="myPage()" >마이페이지</button>
+                    <button class="logout" onclick="logout()">로그아웃</button>
+                </th:block>
+                <th:block th:if="${session.binID != null}">
+                    <input type="hidden" id="binID" name="binID" th:value="${session.binID}">
+                    <span class="userName"><b>[[${session.binName}]]</b> 님</span>
+                    <button class="mypage" onclick="binPage()">관리자</button>
+                    <button class="logout" onclick="logout()">로그아웃</button>
+                </th:block>
+                <th:block th:if="${session.id == null} and ${session.binID == null}">
+                    <button class="login" onclick="loginPage()">로그인/회원가입</button>
+                </th:block>
+
+            </div>
+
+        </div>
+        <nav>
+            <ul id="menu">
+                <li><a href="/nation">국가별</a></li>
+                <li><a href="/air">항공</a></li>
+                <li><a href="/hotel">숙박</a></li>
+                <li><a href="/ticket">티켓</a></li>
+                <li><a href="/packages">패키지</a></li>
+                <li>자유게시판</li>
+            </ul>
+        </nav>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // 네비게이션 메뉴 항목에 클릭 이벤트 리스너 추가
+                const menuItems = document.querySelectorAll('#menu li');
+                menuItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        // 모든 항목에서 active 클래스 제거
+                        menuItems.forEach(i => i.classList.remove('active'));
+                        // 클릭된 항목에 active 클래스 추가
+                        this.classList.add('active');
+                    });
+                });
+            })
+
+            function loginPage(){
+                 location.href="/login";
+            }
+            function schedule(){
+                let userId = document.getElementById("id").value;
+                location.href = "/diary/" + userId;
+            }
+            function logout(){
+                if(confirm("로그아웃 하시겠습니까?") == true){
+                    location.href="/logout";
+                } else {
+                    return false;
+                }
+            }
+
+            function adminPage(){
+                let id = document.getElementById("adminID").value;
+
+                if(id != 'admin'){
+                    alert("접근 권한이 없습니다");
+                    return;
+                }
+
+                location.href="/admin";
+            }
+
+            function myPage(){
+                let id = document.getElementById("id").value;
+                location.href="/mypage/"+id;
+            }
+
+            function binPage(){
+                let id = document.getElementById("binID").value;
+                location.href="/binpage/"+id;
+            }
+        </script>
+    </header>
+
+</div>
+</body>
+</html>

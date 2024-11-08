@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exampl.traveler.mapper.BoardMapper">
+    <select id="getBoard" resultType="boardVO">
+        SELECT * FROM board LIMIT 5
+    </select>
+
+    <select id="getBoardPage" resultType="com.exampl.traveler.vo.BoardVO">
+        SELECT * FROM board
+        ORDER BY tripDate DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="search" resultType="com.exampl.traveler.vo.BoardVO">
+        select * from board where tripTitle like '%${data}%'
+    </select>
+
+    <select id="findsearchTripType" resultType="com.exampl.traveler.vo.BoardVO">
+        SELECT *
+        FROM board
+        WHERE tripTitle LIKE '%${data}%'
+        OR tripType = '${tripType}';
+    </select>
+
+    <select id="findBoardAllTripType" resultType="com.exampl.traveler.vo.BoardVO">
+        select * FROM board where tripType = ${tripType} ORDER BY tripDate desc limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="getTotalBoardCount" resultType="int">
+        SELECT COUNT(*) FROM board
+    </select>
+    <update id="increaseViewCount">
+        UPDATE BOARD SET COUNT = count +1 where boardNO = #{boardNO}
+
+    </update>
+    <insert id="insertBoard">
+        INSERT INTO board (userId, tripType, tripTitle, tripText, tripImgPath, tripDate, tripYn)
+        VALUES (#{userId}, #{tripType}, #{tripTitle}, #{tripText}, #{tripImgPath}, #{tripDate}, #{tripYn})
+    </insert>
+
+    <select id="selectOne" resultType="com.exampl.traveler.vo.BoardVO">
+        SELECT * FROM BOARD WHERE boardNO = #{boardNo}
+
+    </select>
+    <select id="getBoardByKeyword" resultType="com.exampl.traveler.vo.BoardVO">
+        SELECT * FROM board
+        WHERE tripTitle LIKE CONCAT('%', #{keyword}, '%')
+        OR tripText LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>왕복 항공편 선택 - 가는 편</title>
+    <link rel="stylesheet" href="/css/airplane/air_list.css" />
+</head>
+<body>
+<header>
+    <h1>왕복 항공편 선택 - 가는 편</h1>
+    <div class="trip-info">
+        <span th:text="${departure} + ' → ' + ${destination}">출발지 → 도착지</span>
+        <span th:text="${departureDate}">출발 날짜</span>
+    </div>
+</header>
+<main>
+    <div class="air-list">
+        <div th:each="air : ${airs}" class="air-item">
+            <div class="airline-logo" th:text="${air.airCompany}">항공사 로고</div>
+            <div class="air-details">
+                <div class="air-time">
+                    <span th:text="${#dates.format(air.departureDateTime, 'yyyy-MM-dd HH:mm')}">출발 날짜 및 시간</span>
+                    <span class="arrow">→</span>
+                    <span th:text="${#dates.format(air.arrivalDateTime, 'yyyy-MM-dd HH:mm')}">도착 날짜 및 시간</span>
+                </div>
+                <div class="air-route">
+                    <span th:text="${air.departureAirport}">출발 공항</span>
+                    <span th:text="${air.arrivalAirport}">도착 공항</span>
+                </div>
+                <div class="air-number" th:text="${air.airlineNO}">항공편 번호</div>
+            </div>
+            <div class="air-price">
+                <span th:text="${#numbers.formatDecimal(air.airPrice, 0, 'COMMA', 0, 'POINT')}">가격</span>원
+            </div>
+            <button class="select-air" th:attr="data-airno=${air.airlineNO}">선택</button>
+        </div>
+    </div>
+</main>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const departure = /*[[${departure}]]*/ '';
+    const destination = /*[[${destination}]]*/ '';
+    const departureDate = /*[[${departureDate}]]*/ '';
+    const returnDate = /*[[${returnDate}]]*/ '';
+    /*]]>*/
+</script>
+<script src="/js/airplane/roundtrip.js"></script>
+</body>
+</html>

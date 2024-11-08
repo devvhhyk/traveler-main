@@ -1,0 +1,123 @@
+
+main{
+    padding-top:180px; /* header와 nav의 높이에 따라 조정 */
+    padding-bottom: 50px;
+    height: 100%;
+}
+
+.table_content{
+    width: 80%;
+    border: 1px solid #AEAEAE;
+    border-collapse: collapse;
+    margin: 20px auto 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table_content tr{
+    border: 1px solid #ddd;
+    height: 50px;
+    position: relative;
+}
+
+.table_content tr th {
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.table_content tr td {
+    border: 1px solid #ddd;
+    font-size: 14px;
+    text-align: center;
+}
+
+.item_btn{
+    height: 30px;
+    width : 60px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #1273E4;
+    cursor: pointer;
+}
+
+.search_content{
+    display: flex;
+    justify-content: center;
+}
+
+select{
+    width: 150px;
+    height: 40px;
+    background-size: 20px;
+    padding: 5px 30px 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: 0 none;
+    margin-right: 5px;
+}
+
+.search_input{
+    height: 40px;
+    width: 500px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0;
+    margin-right: 5px;
+}
+
+.search_btn{
+    height: 40px;
+    width: 70px;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #fff;
+    background-color: #1273E4;
+    cursor: pointer;
+}
+
+.reset_btn{
+    height: 40px;
+    width: 100px;
+    border: 1px solid #1273E4;
+    margin-left : 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #1273E4;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.list_container{
+    margin-top : 80px
+}
+
+.binCate_content{
+    display: flex;
+    justify-content: center;
+    margin-bottom : 20px;
+}
+
+.binCate_content input[type=radio]{
+    display: none;
+    margin: 0;
+}
+
+.binCate_content input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    border:1px solid #ddd;
+    border-radius : 10px;
+    margin : 3px;
+    width: 100px;
+    height: 40px;
+    align-content: center;
+    font-size:15px;
+}
+
+.binCate_content input[type=radio]:checked+label{
+    background-color: #1273E4;
+    border-radius: 10px;
+    color: #fff;
+}

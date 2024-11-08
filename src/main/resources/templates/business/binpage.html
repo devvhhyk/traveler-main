@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/business/business.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/header_foter/header.css" />
+    <link rel="stylesheet" href="/css/header_foter/foter.css" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="/js/business/business.js" defer></script>
+</head>
+<body>
+<main>
+    <div th:replace="header_foter/header :: header"></div>
+    <div class="body_container">
+        <div class="profile_container">
+            <div class="profile_content">
+                <input type="hidden" id="id" name="id" th:value="${session.binID}">
+                <h4>[[${vo.getBinName()}]] 님</h4>
+                <p>사업자번호 : [[${vo.getBinCode()}]]</p>
+            </div>
+            <input type="button" onclick="proEditor()" value="내 정보 수정하기">
+        </div>
+    </div>
+    <div style="background-color : #f2f2f2; padding:10px; "></div>
+
+    <div class="register_content">
+        <input type="hidden" id="binCate" name="binCate" th:value="${session.binCate}">
+        <input type="button" class="register_btn" onclick="binWrite()" value="등록하기">
+    </div>
+    <div class="list_container">
+        <div>
+            <table class="table_content">
+                <tr>
+                    <th:block th:if="${session.binCate == '1'}">
+                        <th>국가</th>
+                        <th>항공편명</th>
+                        <th>출발공항</th>
+                        <th>도착공항</th>
+                        <th>출발정보</th>
+                        <th>도착정보</th>
+                        <th>가격(1인 기준)</th>
+                        <th>관리</th>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '2'}">
+                        <th>국가</th>
+                        <th>호텔명</th>
+                        <th>체크인/체크아웃</th>
+                        <th>가격(1박 기준)</th>
+                        <th>관리</th>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '3'}">
+                        <th>국가</th>
+                        <th>카테고리</th>
+                        <th>티켓명</th>
+                        <th>사용일</th>
+                        <th>가격</th>
+                        <th>관리</th>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '4'}">
+                        <th>패키지명</th>
+                        <th>최대인원</th>
+                        <th>시작일</th>
+                        <th>종료일</th>
+                        <th>가격</th>
+                        <th>관리</th>
+                    </th:block>
+                </tr>
+                <tr th:each="item : ${item}">
+                    <th:block th:if="${session.binCate == '1'}">
+                        <td>[[${item.getCityName}]]</td>
+                        <td>[[${item.getAirTitle}]]</td>
+                        <td>[[${item.getDepartureAirport}]]</td>
+                        <td>[[${item.getArrivalAirport}]]</td>
+                        <td>[[${#dates.format(item.getDepartureDateTime, 'yyyy-MM-dd HH:mm')}]]
+                        <td>[[${#dates.format(item.getArrivalDateTime, 'yyyy-MM-dd HH:mm')}]]</td>
+                        <td>[[${#numbers.formatInteger(item.getAirPrice, 3, 'COMMA')}]]</td>
+                        <td><input type="button" class="item_btn" onclick="#" value="관리"></td>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '2'}">
+                        <td>[[${item.getHotelCountry}]]</td>
+                        <td>[[${item.getHotelName}]]</td>
+                        <td>[[${item.getHotelTime}]]</td>
+                        <td>[[${#numbers.formatInteger(item.getHotelPrice, 3, 'COMMA')}]]</td>
+                        <td><input type="button" class="item_btn" onclick="#" value="관리"></td>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '3'}">
+                        <td>[[${item.getTickPlace}]]</td>
+                        <td>[[${item.getCategory}]]</td>
+                        <td>[[${item.getTickTitle}]]</td>
+                        <td>[[${#dates.format(item.getTickDate, 'yyyy-MM-dd')}]]</td>
+                        <td>[[${#numbers.formatInteger(item.getTickPrice, 3, 'COMMA')}]]</td>
+                        <td><input type="button" class="item_btn" onclick="#" value="관리"></td>
+                    </th:block>
+                    <th:block th:if="${session.binCate == '4'}">
+                        <td>[[${item.getPackTitle}]]</td>
+                        <td>[[${item.getPackMax}]]</td>
+                        <td>[[${item.getPack}]]</td>
+                        <td>[[${item.getPack}]]</td>
+                        <td>[[${#numbers.formatInteger(item.getPackagePrice, 3, 'COMMA')}]]</td>
+                        <td><input type="button" class="item_btn" onclick="#" value="관리"></td>
+                    </th:block>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</main>
+<div th:replace="header_foter/foter :: foter"></div>
+</body>
+</html>

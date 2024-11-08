@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exampl.traveler.mapper.LoginMapper">
+    <!-- 일반회원 로그인 & 회원가입 xml -->
+    <!-- 로그인 체크 -->
+    <select id="loginCheck" resultType="boolean">
+        select count(*) from user where userID = #{userID} and userPW = #{userPW}
+    </select>
+
+    <!-- 아이디 중복 체크 -->
+    <select id="idCheck" resultType="boolean">
+        select count(*) from user where userID = #{id}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="idInsert">
+        insert into user values(
+            #{userID},
+            #{userPW},
+            #{userBirth},
+            #{userEmail},
+            #{userName},
+            #{userTell},
+            #{userWish}
+        )
+    </insert>
+
+    <!-- 회원 한명 찾기 -->
+    <select id="selectOne">
+        select * from user where userID = #{id}
+    </select>
+
+    <!-- 회원 전체 select -->
+    <select id="selectAll" resultType="com.exampl.traveler.vo.MemberVO">
+        select * from user where userID != 'admin'
+    </select>
+
+    <!-- 기업회원 로그인 & 회원가입 xml -->
+    <!-- 로그인 체크 -->
+    <select id="binLoginCheck" resultType="boolean">
+        select count(*) from businessUser where binID = #{binID} and binPW = #{binPW}
+    </select>
+
+    <!-- 기업 아이디 중복 체크-->
+    <select id="binIdCheck" resultType="boolean">
+        select count(*) from businessUser where binID = #{id}
+    </select>
+
+    <!-- 기업 회원가입 -->
+    <insert id="binIdInsert">
+        insert into businessUser values(
+            #{binID},
+            #{binPW},
+            #{binCate},
+            #{binName},
+            #{binCode},
+            #{binEmail},
+            #{binTell}
+        )
+    </insert>
+
+    <!-- 기업 한명 찾기 -->
+    <select id="binSelectOne">
+        select * from businessUser where binID = #{id}
+    </select>
+
+    <!-- 기업 전체 select -->
+    <select id="binSelectAll" resultType="com.exampl.traveler.vo.BusinessVO">
+        select * from businessUser
+    </select>
+
+    <!-- 기업 사업자번호 중복 체크-->
+    <select id="binCodeCheck" resultType="boolean">
+        select count(*) from businessUser where binCode = #{code}
+    </select>
+</mapper>

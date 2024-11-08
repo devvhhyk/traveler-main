@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Write</title>
+    <link href="/css/business/binWrite.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/header_foter/header.css">
+    <link rel="stylesheet" href="/css/header_foter/foter.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="/js/business/binWrite.js" defer></script>
+</head>
+<body>
+<main>
+    <div th:replace="header_foter/header :: header"></div>
+
+    <h1>호텔 등록</h1>
+    <form id="hotelForm">
+        <input type="hidden" id="binID" name="binID" value="BIN002">
+        <input type="hidden" id="binCate" name="binCate" th:value="${session.binCate}">
+        <div class="table_container">
+            <table class="table_content">
+                <tr>
+                    <th>호텔 이름</th>
+                    <td><input type="text" id="hotelName" name="hotelName"></td>
+                </tr>
+                <tr>
+                    <th>호텔 가격</th>
+                    <td><input type="number" id="hotelPrice" name="hotelPrice"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 메인</th>
+                    <td><input type="text" id="hotelImg" name="hotelImg"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 1</th>
+                    <td><input type="text" id="hotelImg1" name="hotelImg1"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 2</th>
+                    <td><input type="text" id="hotelImg2" name="hotelImg2"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 3</th>
+                    <td><input type="text" id="hotelImg3" name="hotelImg3"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 4</th>
+                    <td><input type="text" id="hotelImg4" name="hotelImg4"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 5</th>
+                    <td><input type="text" id="hotelImg5" name="hotelImg5"></td>
+                </tr>
+                <tr>
+                    <th>호텔 이미지 6</th>
+                    <td><input type="text" id="hotelImg6" name="hotelImg6"></td>
+                </tr>
+                <tr>
+                    <th>호텔 한 줄 소개</th>
+                    <td><input type="text" id="hotelText" name="hotelText"></td>
+                </tr>
+                <tr>
+                    <th>호텔 시설</th>
+                    <td><input type="text" id="hotelFacility" name="hotelFacility"></td>
+                </tr>
+                <tr>
+                    <th>호텔 나라</th>
+                    <td><input type="text" id="hotelCountry" name="hotelCountry"></td>
+                </tr>
+                <tr>
+                    <th>호텔 시간</th>
+                    <td><input type="text" id="hotelTime" name="hotelTime"></td>
+                </tr>
+                <tr>
+                    <th>호텔 주의사항</th>
+                    <td><input type="text" id="hotelCheck" name="hotelCheck"></td>
+                </tr>
+                <tr>
+                    <th>호텔 주소</th>
+                    <td><input type="text" id="hotelAddr" name="hotelAddr"></td>
+                </tr>
+                <tr>
+                    <th>호텔 설명</th>
+                    <td><input type="text" id="hotelDescription" name="hotelDescription"></td>
+                </tr>
+                <tr>
+                    <th>호텔 명소</th>
+                    <td><input type="text" id="hotelSights" name="hotelSights"></td>
+                </tr>
+                <tr>
+                    <th>호텔 방 개수</th>
+                    <td><input type="number" id="hotelTotal" name="hotelTotal"></td>
+                </tr>
+            </table>
+        </div>
+        <input type="button" class="save_btn" id="saveHotelBtn" onclick="saveHotel()" value="호텔 저장하기">
+    </form>
+    <input type="button" class="back_btn" id="backBtn" name="backBtn" onclick="back()" value="뒤로가기">
+</main>
+</body>
+</html>
