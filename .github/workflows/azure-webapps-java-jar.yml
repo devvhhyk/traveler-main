@@ -1,0 +1,67 @@
+name: Build and deploy JAR app to Azure Web App
+
+env:
+  AZURE_WEBAPP_NAME: traveler    # Azure Web App 이름
+  JAVA_VERSION: '17'                  # Java 버전
+  DISTRIBUTION: zulu                  # Java 배포판
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java version
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.DISTRIBUTION }}
+          cache: 'gradle'  # Gradle 캐시 사용
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x ./gradlew  # gradlew 파일에 실행 권한 추가
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test  # Gradle 빌드 (테스트 제외)
+
+      - name: List build directory
+        run: ls -la build/libs  # 빌드 후 JAR 파일 확인을 위한 디버그 단계 추가
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-app
+          path: 'build/libs/*.jar'  # Gradle 빌드 결과물 위치
+
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: java-app
+          path: '.'  # 현재 디렉토리에 다운로드
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: 'traveler-0.0.1-SNAPSHOT.jar'  # 빌드된 모든 JAR 파일을 대상으로 설정
